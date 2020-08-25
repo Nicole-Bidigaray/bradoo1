@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
-from decouple import config
+import django_heroku
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,8 +22,8 @@ BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
+SECRET_KEY = 'g3&4!e4^(-13jsm=)co=eb$(*d!)o0j%vhxr-692(a89e%foxy'
+DEBUG = True
 
 ALLOWED_HOSTS = ['bradoo1.herokuapp.com/', 'localhost']
 
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'vendors.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'bradoo1'),
         'USER': os.environ.get('DB_USER', 'nicole'),
         'PASSWORD': os.environ.get('DB_PASS', 'seichonoie'),
@@ -130,3 +130,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
 }
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
