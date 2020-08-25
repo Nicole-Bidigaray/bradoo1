@@ -1,30 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List products</title>
-</head>
-<body>
-    <h2>List Products</h2>
+{% extends 'base.html' %}
+{% load bootstrap %}
 
-    <ul>
-    {% for product in products %}
-        <li>
-            <a href="{% url 'suppliers_product_update' product.id %}">{{ product.name }} </a>
+{% block menu %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'suppliers_home' %}">Home</a>
         </li>
-    {% endfor %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="{% url 'suppliers_list_providers' %}">Providers</a>
+                <a class="dropdown-item active" href="{% url 'suppliers_list_products' %}">Products</a>
+            </div>
+        </li>
     </ul>
+{% endblock %}
 
+{% block main %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h2>Register</h2>
 
-    <form action="{% url 'suppliers_product_new' %}" method="POST">
-        {% csrf_token %}
+            <form action="{% url 'suppliers_product_new' %}" method="POST">
+                {% csrf_token %}
 
-        {{ form.as_p }}
+                {{ form|bootstrap }}
 
-        <button type="submit">Register</button>
-    </form>
-</body>
-</html>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+        
+        <div class="col-sm-6">
+            <h1>List Products</h1>
+            
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Code</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <th scope="row">{{ product.name }}</th>
+                        <td>{{ product.code }}</td>
+                        <td>R$ {{ product.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
+        </div>
+    </div>
+
+{% endblock %}

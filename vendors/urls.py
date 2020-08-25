@@ -31,6 +31,7 @@ router.register(r'provider', ProviderViewSet, basename='Provider')
 
 urlpatterns = [
     path('', include(router.urls)),
+    url(r'^', include('website.urls')),
     url(r'^suppliers/', include('suppliers.urls')),
     path('admin/', admin.site.urls),
 ]

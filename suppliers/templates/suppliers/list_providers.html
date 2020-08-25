@@ -1,31 +1,61 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List providers</title>
-</head>
-<body>
-   <h2>List Providers</h2>
+{% extends 'base.html' %}
+{% load bootstrap %}
 
-    <ul>
-        {% for provider in providers %}
-            <li>
-                <a href="{% url 'suppliers_provider_update' provider.id %}">{{ provider.name }} </a>
-            </li>
-        {% endfor %}
+{% block menu %}
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'suppliers_home' %}">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Services</a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item active" href="{% url 'suppliers_list_providers' %}">Providers</a>
+                <a class="dropdown-item" href="{% url 'suppliers_list_products' %}">Products</a>
+            </div>
+        </li>
     </ul>
+{% endblock %}
 
+{% block main %}
 
-    <form action="{% url 'suppliers_provider_new' %}" method="POST">
-        {% csrf_token %}
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>Register</h1>
 
-        {{ form.as_p }}
+            <form action="{% url 'suppliers_provider_new' %}" method="POST">
+                {% csrf_token %}
 
-        <button type="submit">Register</button>
-    </form>
+                {{ form|bootstrap }}
 
-</body>
-</html>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+        
+        <div class="col-sm-6">
+            <h1>List Providers</h1>
 
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">CNPJ</th>
+                        <th scope="col">City</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for provider in providers %}
+                    <tr>
+                        <th scope="row">{{ provider.id }}</th>
+                        <td>{{ provider.name }}</td>
+                        <td>{{ provider.cnpj }}</td>
+                        <td>{{ provider.city }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+{% endblock %}
