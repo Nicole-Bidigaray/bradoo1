@@ -2,7 +2,6 @@ from django.db import models
 
 
 class Provider(models.Model):
-
     name = models.CharField(max_length=150, blank=False, null=False)
     cnpj = models.CharField(max_length=18, blank=False,
                             null=False, unique=True)
