@@ -44,7 +44,7 @@
                 <tbody>
                     {% for product in products %}
                     <tr>
-                        <th scope="row">{{ product.name }}</th>
+                        <th scope="row"><a href="{% url 'suppliers_product_update' product.id %}">{{ product.name }}</a></th>
                         <td>{{ product.code }}</td>
                         <td>R$ {{ product.price }}</td>
                     </tr>

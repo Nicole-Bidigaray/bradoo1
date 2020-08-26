@@ -47,7 +47,7 @@
                     {% for provider in providers %}
                     <tr>
                         <th scope="row">{{ provider.id }}</th>
-                        <td>{{ provider.name }}</td>
+                        <td><a href="{% url 'suppliers_provider_update' provider.id %}">{{ provider.name }}</a></td>
                         <td>{{ provider.cnpj }}</td>
                         <td>{{ provider.city }}</td>
                     </tr>
